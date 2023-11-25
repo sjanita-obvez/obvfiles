@@ -71,7 +71,7 @@ services:
   observeasy-autoflow:
     hostname: observeasy-autoflow
     container_name: observeasy-autoflow
-    image: '$af_image'
+    image: "$af_image"
     restart: unless-stopped
     stdin_open: true
     tty: true
