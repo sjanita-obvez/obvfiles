@@ -103,7 +103,7 @@ services:
     image: 'dnwo05/observeasy-dockerized:latest' # TODO: Need to update with jrc docker account
     restart: unless-stopped
     ports:
-      - '80:80'
+      - '8080:80'
     depends_on:
       - observeasy-database
       - observeasy-autoflow
