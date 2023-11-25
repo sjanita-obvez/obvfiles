@@ -6,8 +6,8 @@
 
 
 ## create directory for obv installation
-##mkdir -p obv
-##sudo cd obv
+mkdir -p obv
+cd obv
 
 
 ## install docker on this host
