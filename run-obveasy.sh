@@ -91,7 +91,7 @@ services:
       DATABASE_HOST: observeasy-database
       DATABASE_NAME: observeasy
       DATABASE_USER: postgres
-      DATABASE_PASSWORD: "$pg_pw"
+      DATABASE_PASSWORD: $pg_pw
       PHPIPAM_APP_ID: observeasy
       PHPIPAM_APP_CODE: f_T_icyLF6WR7D3jseVng9ADMbrtPGlR
       PHPIPAM_BASE_URI: phpipam-web
