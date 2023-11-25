@@ -64,14 +64,14 @@ services:
     environment:
       POSTGRES_DB: observeasy
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD:"$pg_pw"
+      POSTGRES_PASSWORD: $pg_pw
     networks:
       - observeasy
 
   observeasy-autoflow:
     hostname: observeasy-autoflow
     container_name: observeasy-autoflow
-    image: "$af_image"
+    image: $af_image
     restart: unless-stopped
     stdin_open: true
     tty: true
@@ -86,7 +86,7 @@ services:
       AUTOFLOW_UI_PORT: 4000
       AUTOFLOW_BOOT_FILE: data/config.json
       AUTOFLOW_ADMIN_USERNAME: admin
-      AUTOFLOW_ADMIN_PASSWORD: "$af_pw"
+      AUTOFLOW_ADMIN_PASSWORD: $af_pw
       AUTOFLOW_LICENSE_FILE: # TODO: Need to update with jrc autoflow license
       DATABASE_HOST: observeasy-database
       DATABASE_NAME: observeasy
