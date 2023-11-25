@@ -25,11 +25,14 @@ sh get-docker.sh
 echo "Docker-compose will be installed"
 
 echo "Install docker-compose"
-ARCH=$(uname -m)
-if [ "$ARCH" = "armv7l" ]; then
-    ARCH="armv7"
-fi
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$ARCH" -o /usr/local/bin/docker-compose
+cpu=$(uname -m)
+echo $cpu
+distro=$(uname -s)
+    if [ "$distro" = "Linux" ]; then
+        distro="linux"
+    fi
+echo $distro
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$distro-$cpu" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
