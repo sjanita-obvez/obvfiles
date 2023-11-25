@@ -24,7 +24,11 @@ sh get-docker.sh
 ## install docker-compose on this host
 echo "Docker-compose will be installed"
 
-echo "Downloading docker-compose package"
+echo "Install docker-compose"
+ARCH=$(uname -m)
+if [ "$ARCH" = "armv7l" ]; then
+    ARCH="armv7"
+fi
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$ARCH" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
