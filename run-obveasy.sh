@@ -40,14 +40,13 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 ## create variables for docker-compose file
 export pg_pw=$1
-export af_image=$2
-export af_pw=$3
+export af_pw=$2
 
 
 ## create the docker compose yaml file
 echo "Creating the docker compose file"
 cat << EOF > docker-compose.yml
-version: '3'
+version: '1.1'
 
 services:
   # ===================
@@ -56,11 +55,10 @@ services:
   observeasy-database:
     hostname: observeasy-database
     container_name: observeasy-database
-    image: 'postgres:16-alpine'
+    image: pulzzedongyeon/observeasy-database:latest
     restart: unless-stopped
     volumes:
-      - ./database/observeasy.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./database/database-data:/var/lib/postgresql/data
+      - observeasy-database:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: observeasy
       POSTGRES_USER: postgres
@@ -71,7 +69,7 @@ services:
   observeasy-autoflow:
     hostname: observeasy-autoflow
     container_name: observeasy-autoflow
-    image: $af_image
+    image: pulzzedongyeon/observeasy-autoflow:latest
     restart: unless-stopped
     stdin_open: true
     tty: true
@@ -80,14 +78,13 @@ services:
       - 9090:9090
       - 9091:9091
     volumes:
-      - ./autoflow/autoflow-data:/app/data
-      - ./autoflow/config.json:/app/data/config.json
+      - observeasy-autoflow:/app/data
     environment:
       AUTOFLOW_UI_PORT: 4000
       AUTOFLOW_BOOT_FILE: data/config.json
       AUTOFLOW_ADMIN_USERNAME: admin
       AUTOFLOW_ADMIN_PASSWORD: $af_pw
-      AUTOFLOW_LICENSE_FILE: # TODO: Need to update with jrc autoflow license
+      AUTOFLOW_LICENSE_FILE:
       DATABASE_HOST: observeasy-database
       DATABASE_NAME: observeasy
       DATABASE_USER: postgres
@@ -105,7 +102,7 @@ services:
   observeasy-frontend:
     hostname: observeasy-frontend
     container_name: observeasy-frontend
-    image: 'dnwo05/observeasy-dockerized:latest' # TODO: Need to update with jrc docker account
+    image: 'dnwo05/observeasy-dockerized:latest'
     restart: unless-stopped
     ports:
       - '8080:80'
@@ -118,7 +115,8 @@ networks:
   observeasy:
 
 volumes:
-  autoflow:
+  observeasy-autoflow:
+  observeasy-database:
 
 EOF
 
